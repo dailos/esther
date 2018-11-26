@@ -30,18 +30,19 @@
 	</div>
 
 	<div class="form_data">
-		<h3>Subir nueva factura</h3>
+		<h3>Subir nueva factura/Albarán</h3>
 		<?php 
 			echo $this->Form->create('Bill', array('action'=>'upload', 'type'=>'file','inputDefaults' => array('label' => false,'div' => false))); 
 	 		echo $this->Form->file('file');
 	 		echo $this->Form->hidden('company_id',array('value'=>$company['Company']['id']));
-			echo $this->Form->end('Subir factura');
+			echo $this->Form->end('Subir');
 		?>		
 	</div>
-	<h3>Listado de facturas</h3>
+	<h3>Listado de facturas/Albaranes</h3>
 	<table cellpadding="0" cellspacing="0">
 	<tr>			
-			<th>Nº Factura</th>
+			<th>Referencia</th>
+			<th>Tipo</th>
 			<th>Fecha</th>			
 			<th>Enviada</th>
 			<th>Descargada</th>
@@ -54,9 +55,11 @@
 		if($bill['seen'] != '') $status = 'seen';
 		else if($bill['sent'] != '') $status = 'sent';
 		else $status = 'pending';
+		$type = $bill['type'] == 'FRE' ? 'Factura' : 'Albarán';
 	?>
 	<tr class="<?php echo $status; ?>">
 		<td><?php echo h($bill['reference']); ?>&nbsp;</td>
+		<td><?php echo h($type); ?> &nbsp;</td>
 		<td><?php echo h(date("d-m-Y",strtotime($bill['date']))); ?>&nbsp;</td>		
 		<td><?php echo h(date("d-m-Y H:i:s",strtotime($bill['sent']))); ?>&nbsp;</td>
 		<td><?php echo h(date("d-m-Y H:i:s",strtotime($bill['seen']))); ?>&nbsp;</td>

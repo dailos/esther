@@ -17,7 +17,7 @@
 		<li class="<?php echo $groups;?>" ><?php echo $this->Html->link('Grupos', array('controller'=>'groups','action' =>'index'));?></li>	
 		<li class="<?php echo $formats;?>" ><?php echo $this->Html->link('Formatos', array('controller'=>'formats','action' =>'index'));?></li>		
 		<li class="<?php echo $companies;?>" ><?php echo $this->Html->link('Clientes', array('controller'=>'companies','action' =>'index'));?></li>	
-		<li class="<?php echo $bills;?>" ><?php echo $this->Html->link('Facturas', array('controller'=>'bills','action' =>'index'));?></li>			
+		<li class="<?php echo $bills;?>" ><?php echo $this->Html->link('Fac/Alb', array('controller'=>'bills','action' =>'index'));?></li>
 		<li class="<?php echo $users;?>" ><?php echo $this->Html->link('Usuarios', array('controller'=>'users','action' =>'index'));?></li>
 	</ul>
 </div>

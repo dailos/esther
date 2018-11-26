@@ -5,14 +5,16 @@ services:
     image: wodby/mariadb:$MARIADB_TAG
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
       MYSQL_DATABASE: $DB_NAME
       MYSQL_USER: $DB_USER
       MYSQL_PASSWORD: $DB_PASSWORD
-#    volumes:
+    volumes:
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
-#      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
+      - /home/dailos/.docker/alcoder/mariadb/data:/var/lib/mysql # I want to manage volumes manually.
 
 #  postgres:
 #    image: wodby/postgres:$POSTGRES_TAG
@@ -51,46 +53,46 @@ services:
 ## For XHProf and Xdebug profiler traces
 #      - files:/mnt/files
 
-  nginx:
-    image: wodby/nginx:$NGINX_TAG
-    container_name: "${PROJECT_NAME}_nginx"
-    depends_on:
-      - php
-    environment:
-      NGINX_STATIC_OPEN_FILE_CACHE: "off"
-      NGINX_ERROR_LOG_LEVEL: debug
-      NGINX_BACKEND_HOST: php
-      NGINX_VHOST_PRESET: php
-      NGINX_SERVER_ROOT: /var/www/html/public
-    volumes:
-      - ./:/var/www/html
-# Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
-#      - ./:/var/www/html:cached # User-guided caching
-#      - docker-sync:/var/www/html # Docker-sync
-    labels:
-      - 'traefik.backend=nginx'
-      - 'traefik.port=80'
-      - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
-
-#  apache:
-#    image: wodby/apache:$APACHE_TAG
-#    container_name: "${PROJECT_NAME}_apache"
+#  nginx:
+#    image: wodby/nginx:$NGINX_TAG
+#    container_name: "${PROJECT_NAME}_nginx"
 #    depends_on:
 #      - php
 #    environment:
-#      APACHE_LOG_LEVEL: debug
-#      APACHE_BACKEND_HOST: php
-#      APACHE_VHOST_PRESET: php
-#      APACHE_DOCUMENT_ROOT: /var/www/html/public
+#      NGINX_STATIC_OPEN_FILE_CACHE: "off"
+#      NGINX_ERROR_LOG_LEVEL: debug
+#      NGINX_BACKEND_HOST: php
+#      NGINX_VHOST_PRESET: php
+#      NGINX_SERVER_ROOT: /var/www/html/public
 #    volumes:
 #      - ./:/var/www/html
+# Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
+#      - ./:/var/www/html:cached # User-guided caching
+#      - docker-sync:/var/www/html # Docker-sync
+#    labels:
+#      - 'traefik.backend=nginx'
+#      - 'traefik.port=80'
+#      - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
+
+  apache:
+    image: wodby/apache:$APACHE_TAG
+    container_name: "${PROJECT_NAME}_apache"
+    depends_on:
+      - php
+    environment:
+      APACHE_LOG_LEVEL: debug
+      APACHE_BACKEND_HOST: php
+      APACHE_VHOST_PRESET: php
+      APACHE_DOCUMENT_ROOT: /var/www/html
+    volumes:
+      - ./:/var/www/html
 ## For macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
 ##      - ./:/var/www/html:cached # User-guided caching
 ##      - docker-sync:/var/www/html # Docker-sync
-#    labels:
-#      - 'traefik.backend=apache'
-#      - 'traefik.port=80'
-#      - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
+    labels:
+      - 'traefik.backend=apache'
+      - 'traefik.port=80'
+      - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
 
   mailhog:
     image: mailhog/mailhog
@@ -132,19 +134,19 @@ services:
 #      - 'traefik.port=9000'
 #      - 'traefik.frontend.rule=Host:adminer.${PROJECT_BASE_URL}'
 
-#  pma:
-#    image: phpmyadmin/phpmyadmin
-#    container_name: "${PROJECT_NAME}_pma"
-#    environment:
-#      PMA_HOST: $DB_HOST
-#      PMA_USER: $DB_USER
-#      PMA_PASSWORD: $DB_PASSWORD
-#      PHP_UPLOAD_MAX_FILESIZE: 1G
-#      PHP_MAX_INPUT_VARS: 1G
-#    labels:
-#      - 'traefik.backend=pma'
-#      - 'traefik.port=80'
-#      - 'traefik.frontend.rule=Host:pma.${PROJECT_BASE_URL}'
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: "${PROJECT_NAME}_pma"
+    environment:
+      PMA_HOST: $DB_HOST
+      PMA_USER: $DB_USER
+      PMA_PASSWORD: $DB_PASSWORD
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+    labels:
+      - 'traefik.backend=pma'
+      - 'traefik.port=80'
+      - 'traefik.frontend.rule=Host:pma.${PROJECT_BASE_URL}'
 
 #  solr:
 #    image: wodby/solr:$SOLR_TAG
@@ -254,8 +256,8 @@ services:
     container_name: "${PROJECT_NAME}_traefik"
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
-      - '8000:80'
-#      - '8080:8080' # Dashboard
+      - '80:80'
+      - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

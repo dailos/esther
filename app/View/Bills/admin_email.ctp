@@ -7,7 +7,8 @@
 </div>
 <div class="bills index">
 <?php 
-$date =date("d-m-Y",strtotime($bill['Bill']['date'])); 
+$date =date("d-m-Y",strtotime($bill['Bill']['date']));
+$type = $bill['Bill']['type'] == 'FRE' ? 'Factura' : 'Albarán valorado';
 echo $this->Html->script('ckeditor/ckeditor'); 
 echo $this->Form->create('Bill', array('action'=>'email',  'inputDefaults' => array('label' => false,'div' => false)));
 echo $this->Form->input('id',array('value'=>$bill['Bill']['id']));
@@ -15,7 +16,7 @@ echo $this->Form->hidden('reference',array('value'=>$bill['Bill']['reference']))
 $hash = md5($bill['Bill']['id']);	
 $url = Router::url('/', true).'bills/download/'. $bill['Bill']['id']."/".$hash;
 $text = 'Estimado/a '.$bill['Company']['contactname'].':<br><br><br>';
-$text .= 'Su factura nº ' . $bill['Bill']['reference'] . ' de <b>LICORES ALCODER CANARIAS, S.L.</b> con fecha ' . $date .' está lista para descargar en el siguiente enlace: ' . $this->Html->link($url,$url);
+$text .= 'Su '.$type .' nº ' . $bill['Bill']['reference'] . ' de <b>LICORES ALCODER CANARIAS, S.L.</b> con fecha ' . $date .' está lista para descargar en el siguiente enlace: ' . $this->Html->link($url,$url);
 $text .= '<br><br><br>Reciba un cordial saludo'; 
 $text .= '<br><br>Esther Bolaños<br><br> <center>Licores Alcoder Canarias, S.L.<br>Tlf 928 66 52 13<br>administracion@alcoder.es</center>';
 ?>

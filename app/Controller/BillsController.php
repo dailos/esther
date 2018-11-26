@@ -1,12 +1,14 @@
 <?php
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('Bill', 'Model');
 /**
  * Bills Controller
  *
  * @property Bill $Bill
  */
 class BillsController extends AppController {
+
 
 /**
  * admin_index method
@@ -20,39 +22,56 @@ class BillsController extends AppController {
 	}
 
 
+    private function processFile($file)
+    {
+        $filename = explode("-", $file['file']['name']);
+        $reference = $filename[0];
+        $type = substr($reference, 0, 3);
+        $date = explode(".", $filename[1]);
+        $this->Bill->create();
+        $this->request->data['Bill']['date'] = "20" . $date[2] . "-" . $date[1] . "-" . $date[0];
+        $this->request->data['Bill']['name'] = $file['file']['name'];
+        $this->request->data['Bill']['reference'] = $reference;
+        $this->request->data['Bill']['company_id'] = $file['company_id'];
+        $this->request->data['Bill']['type'] = $type;
+        $this->Bill->save($this->request->data);
+    }
+
+    private function typeIsAllowed($file)
+    {
+        $filename = explode("-", $file['file']['name']);
+        $type = substr($filename[0], 0, 3);
+        return ($type == Bill::DELIVERY_NOTE || $type == Bill::BILL);
+    }
 /**
  * upload method
  *
  * @return void
  */
-	public function upload() {		
-		if (!empty($this->request->data)) {	
-			$file = $this->request->data['Bill'];				
-			if (move_uploaded_file($file['file']['tmp_name'], BILLS_PATH.$file['file']['name'] )){ 
-				$filename =  explode("-",$file['file']['name']);
-				$reference = $filename[0];
-				if(substr($reference,0,3) == "FRE" ){
-					$date = explode(".",$filename[1]);
-					$this->Bill->create();									
-					$this->request->data['Bill']['date'] = "20".$date[2]."-".$date[1]."-".$date[0];	
-					$this->request->data['Bill']['name'] = $file['file']['name'];
-					$this->request->data['Bill']['reference'] = $reference;	
-					$this->request->data['Bill']['company_id'] = $file['company_id'];			
-					$this->Bill->save($this->request->data);
-					$this->Session->setFlash(__('Factura subida correctamente'));								
-				}else{
-					unlink(BILLS_PATH.$file['file']['name']);
-					$this->Session->setFlash(__('La factura no tiene el formato de nombre correcto: FREXXXXXX-DD.MM.AA-XXXXXXXX'));
-				}	
-			}else{
-				$this->Session->setFlash(__('No se ha podido subir la factura'));
-			}
-			$this->redirect(array('controller'=>'Companies', 'action' => 'view',$file['company_id']));													
-		}else{
-			$this->Session->setFlash(__('Se ha producido un error'));
-		}		
-		$this->redirect(array('action' => 'index'));
-	}
+    public function upload()
+    {
+        if ($this->request->is('post')) {
+            if (empty($this->request->data['Bill']['file']['name'])) {
+                $this->Session->setFlash(__('Se ha producido un error'));
+                return $this->redirect(array('action' => 'index'));
+            }
+
+            $file = $this->request->data['Bill'];
+
+            if (!$this->typeIsAllowed($file)) {
+                $this->Session->setFlash(__('La factura no tiene el formato de nombre correcto: FREXXXXXX-DD.MM.AA-XXXXXXXX'));
+            }
+
+            if (!move_uploaded_file($file['file']['tmp_name'], BILLS_PATH . $file['file']['name'])) {
+                $this->Session->setFlash(__('No se ha podido subir la factura'));
+            }
+
+            $this->processFile($file);
+            $this->Session->setFlash(__('Factura subida correctamente'));
+
+            return $this->redirect(array('controller' => 'Companies', 'action' => 'view', $file['company_id']));
+        }
+    }
 	
 	public function admin_upload() {
 		$this->upload();
@@ -80,8 +99,8 @@ class BillsController extends AppController {
 				$this->Session->setFlash(__('Factura eliminada'));
 			else 
 				$this->Session->setFlash(__('No se ha encontrado el archivo en el servidor'));				
-		}		
-		$this->redirect($this->referer());
+		}
+        $this->redirect(array('controller' => 'Companies', 'action' => 'view', $factura['Bill']['company_id']));
 	}	
 
 	public function admin_email($id = null) {							
@@ -147,7 +166,7 @@ class BillsController extends AppController {
         $this->Pdf->process(Router::url('/', true) . 'bills/billlist'); 
         $this->render(false);         
 	}
-	
-	
+
+
 }
 	

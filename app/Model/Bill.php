@@ -7,12 +7,16 @@ App::uses('AppModel', 'Model');
  */
 class Bill extends AppModel {
 
+    const BILL = "FRE";
+    const DELIVERY_NOTE = "ALB";
+
 /**
  * Display field
  *
  * @var string
  */
 	public $displayField = 'reference';
+
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

@@ -6,8 +6,9 @@
 <div class="bills index">
 	<table cellpadding="0" cellspacing="0">
 	<tr>			
-			<th><?php echo $this->Paginator->sort('reference','Nº Factura'); ?></th>
-			<th><?php echo $this->Paginator->sort('date','Fecha'); ?></th>			
+			<th><?php echo $this->Paginator->sort('reference','Referencia'); ?></th>
+			<th><?php echo $this->Paginator->sort('type','Tipo'); ?></th>
+			<th><?php echo $this->Paginator->sort('date','Fecha'); ?></th>
 			<th><?php echo $this->Paginator->sort('company_id','Cliente'); ?></th>
 			<th><?php echo $this->Paginator->sort('sent','Enviada'); ?></th>
 			<th><?php echo $this->Paginator->sort('seen','Descargada'); ?></th>
@@ -20,9 +21,11 @@
 		if($bill['Bill']['seen'] != '') $status = 'seen';
 		else if($bill['Bill']['sent'] != '') $status = 'sent';
 		else $status = 'pending';
+		$type = $bill['Bill']['type'] == 'FRE' ? 'Factura' : 'Albarán';
 	?>
 	<tr class="<?php echo $status; ?>">
 		<td><?php echo h($bill['Bill']['reference']); ?>&nbsp;</td>
+		<td><?php echo h($type); ?> &nbsp;</td>
 		<td><?php echo h(date("d-m-Y",strtotime($bill['Bill']['date']))); ?>&nbsp;</td>		
 		<td><?php echo h($bill['Company']['companyname']); ?>&nbsp;</td>
 		<td><?php if ($bill['Bill']['sent']) echo h(date("d-m-Y H:i:s",strtotime($bill['Bill']['sent']))); ?>&nbsp;</td>
