@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	<title>
+		Gestmadel		Errors	</title>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon" /><link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" /><link rel="stylesheet" type="text/css" href="/css/cake.generic.css" /><link rel="stylesheet" type="text/css" href="/css/tabs.css" /><script type="text/javascript" src="/js/prototype.js"></script><script type="text/javascript" src="/js/scriptaculous.js"></script><script type="text/javascript" src="/js/tabs.js"></script></head>
+<body>
+	<div id="container">
+		<div id="header">
+			<p align='right'>
+				<a href="/usuarios/logout">Salir</a>			</p>
+			
+			<h1><a href="http://feromadel.com">Gestmadel: Gestión de Feromadel S.L.</a></h1>						
+			<link rel="stylesheet" type="text/css" href="/css/css_menu.css" /><ul class="css_menu cm_down">
+<li class="parent">Gestión
+<ul class="css_menu cm_down">
+<li><a href="/proyectos">Proyectos</a></li>
+<li><a href="/empresas">Empresas</a></li>
+<li><a href="/facturas">Facturas</a></li>
+<li><a href="/tajos/indexpresupuestos">Presupuestos</a></li>
+<li><a href="/albaranes/indexpedidos">Pedidos</a></li>
+<li><a href="/gastos">Gastos</a></li>
+</ul>
+</li>
+<li class="parent">Contabilidad
+<ul class="css_menu cm_down">
+<li><a href="/pagos">Pagos</a></li>
+<li><a href="/cobros">Cobros</a></li>
+</ul>
+</li>
+<li class="parent">Configuración
+<ul class="css_menu cm_down">
+<li><a href="/empresas/view/1">Mis Datos</a></li>
+<li><a href="/servicios">Servicios</a></li>
+<li><a href="/conceptos">Conceptos</a></li>
+<li><a href="/cuentas">Cuentas</a></li>
+<li><a href="/materiales">Materiales</a></li>
+<li><a href="/vehiculos">Vehiculos</a></li>
+<li><a href="/herramientas">Herramientas</a></li>
+<li><a href="/almacenes">Almacenes</a></li>
+<li><a href="/empleados">Empleados</a></li>
+<li><a href="/impuestos">Impuestos</a></li>
+<li><a href="/usuarios">Usuarios</a></li>
+</ul>
+</li>
+<li class="parent">Ayuda
+<ul class="css_menu cm_down">
+<li><a href="">Manual</a></li>
+<li><a href="">Acerca de</a></li>
+</ul>
+</li>
+</ul>
+		</div>		
+		<div id="content">					
+			<h2>Missing Controller</h2>
+<p class="error">
+	<strong>Error: </strong>
+	<em>CssController</em> could not be found.</p>
+<p class="error">
+	<strong>Error: </strong>
+	Create the class <em>CssController</em> below in file: app\controllers\css_controller.php</p>
+<pre>
+&lt;?php
+class CssController extends AppController {
+
+	var $name = 'Css';
+}
+?&gt;
+</pre>
+<p class="notice">
+	<strong>Notice: </strong>
+	If you want to customize this error message, create app\views\errors\missing_controller.ctp</p>			<div  id="selectlist"></div>
+		</div>
+		
+		<div id="footer">	
+			<img src="/img/bonos.jpg" height="100" alt="" /><img src="/img/letraslogo.png" alt="" />	
+		</div>
+	</div>	
+</body>
+</html>

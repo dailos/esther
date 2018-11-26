@@ -1,0 +1,1 @@
+<?php echo $this->Html->image('/files/products/'.$id.STANDARD);?>

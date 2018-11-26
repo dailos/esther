@@ -1,0 +1,410 @@
+/**
+ *
+ * Generic CSS for CakePHP
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.webroot.css
+ * @since         CakePHP(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+* 
+/****************************** GENERAL ********************************************/
+body {
+	background: #fff;
+	color: #aaa;
+	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size:80%;
+	margin: 0;
+	padding:0;
+}
+a{
+	text-decoration: none;
+	color:#999;
+}
+
+h2{
+	color:	#82343d;
+}
+h4{
+	color:#fff;	
+}
+img{
+ 	border:none;
+}
+
+div.img_caption {
+	float: left; 
+    margin: 6px; 
+}
+/*********************************** LAYOUT **************************************/
+#wrap {
+	 margin:0 auto 0 auto; 
+	 width:960px; 	 
+}
+#header{	
+	width:100%;
+}
+#logo{
+	float:left;	
+	margin:10px 20px;
+}
+#content{	
+	margin:0 auto 0 auto; 
+	width:960px; 	 
+	clear:both;
+	padding:20px;
+	position:relative;
+}
+#proteccion_wrapper{	
+	margin:0 auto 0 auto; 
+	width:840px; 	 
+	clear:both;
+	padding:20px;
+	position:relative;
+	height: 550px;
+	overflow-y: scroll;
+}
+#map {
+	float: right; 
+    margin: 20px; 
+}
+	
+#footer{
+	background-color : #82343d;
+	border-bottom:2px solid #666;
+	width:100%;
+	margin-top:20px;
+	position: absolute;
+	top: 740px;
+}
+#main{
+	float:left;	
+	display:inline;
+	clear:none;	
+	width:800px;
+	height:400px;
+}
+#scroll{
+	height: 520px;
+	overflow:scroll;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+#proteccion{
+	padding: 20px;
+	float: left;
+	width: 266px;	
+}
+#proteccion a{
+	color: #fff;
+}
+/************************************ CONTAINERS ***********************************/
+/********* General ***************/
+div.bannerleft{
+	float:left;	
+}
+/************  HOME  **************/
+#content_home{	
+	margin:0 auto 0 auto; 
+	width:960px; 	 
+	clear:both;
+	padding:20px;
+	padding-bottom:5px;
+	position:relative;
+}
+div.homeleft{
+	width:250px;
+	float:left;	
+	display:inline;
+	clear:none;		
+	text-align:justify;
+}
+div.homefooter{
+	clear:both;	
+	background:#ddd;
+	height:220px;
+	padding-bottom:10px;
+}
+div.columns{
+	display:inline;
+	float:left;
+	clear:none;
+	padding:0 10px;
+	width:30%;	
+	text-align : justify;
+	
+}
+div.homefooterin{
+	margin:0 auto 0 auto; 
+	width:960px; 	
+}
+
+/**********  LA EMPRESA ************/
+.big1{
+	color: 
+	#C55901;
+	display: block;
+	float: left;
+	font: 60px/58px Georgia, Times, serif;
+	padding: 0 10px 0 0;	
+}
+.area{
+	color:	#82343d;
+	font-size:110%;
+}
+ul.arrow{
+	list-style :none;
+}
+ul.arrow li{
+	margin-top:10px;
+	background: url(../img/icon-arrow.gif) no-repeat 3px 5px;	
+	padding: 0 0 0 20px;	
+}
+ul.arrow li ul li{
+	background:none;	
+}
+div.empresacontentleft{
+	margin-left:20px;
+	float:left;
+	width:730px;
+	text-align:justify;
+}
+
+/********** GRUPOS ************/
+div.grupo{
+	float:left;	
+	text-align:center;
+	display: inline;
+	clear:none;
+	width:180px;
+	margin:25px;
+	height:150px;
+}
+div.groupname{
+	padding-left:250px;	
+}
+
+/**********  PRODUCTOS ************/
+div.producto{
+	float:left;	
+	text-align:center;
+	display: inline;
+	clear:none;
+	width:150px;
+	height:230px;
+}
+.producto_imagen{
+	height:70%;	
+}
+
+div.productpic{
+	margin:20px;
+	float:left;
+	display:inline;	
+	clear:none;
+}
+div.productinfo{
+	float:left;
+	display:inline;
+	text-align:justify;
+	clear:none;
+	margin-left:130px;
+	width:400px;
+}
+div.related{
+	background: #82343d;
+	padding:1px 20px 5px 20px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	width:300px;
+	margin: 30px 40px;
+}
+
+/********** CONTACTO************/
+div.contactocontentleft{
+	margin-left:20px;
+	float:left;	
+	text-align:justify;
+}
+
+/************************************MODULES ******************************************/
+/**************** CONTACTO******************/
+#breadcrumb{
+	padding: 5px 0px 0px 20px;
+	clear:left;
+}
+#breadcrumb a:hover{
+	color:#82343d;
+	font-weight:bold;
+}
+
+/**************** SEARCH *******************/
+#search{
+	width:125px;
+	float:right;
+	padding:5px;
+	background-color : #82343d;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	text-align:center;
+}
+
+#optionsearch input{
+	width:120px;
+}
+#optionsearch [type=submit]{
+	width:80px;
+	margin:0px 25px;
+}
+a.cancelarbusqueda {
+	color:#fff;	
+}
+/***************** SOCIAL BOOKMARKS **************/
+#contentsocial{
+	margin:0 auto 0 auto; 
+	width:960px;
+}
+#socialbookmarks{	
+	padding:10px; 	
+	float:right;
+	width:250px;
+}
+
+/*******************SLIDESHOW ***************/
+.slideshow{
+	float:left;	
+	display:inline;
+	clear:none;
+	margin-left:40px;
+	height:270px;
+}
+.fadein { 
+	position:relative; 
+	height:332px; 
+	width:600px; 
+}
+.fadein img { 
+	position:absolute; 
+	left:0; 
+	top:0; 
+}
+
+/****************** MENU ********************/
+#menu{
+	width:100%;
+	clear:both;
+	float:left;	
+	background: #82343d;	
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+#menu ul{		
+	padding: 0px;	
+	margin:0px;
+}
+#menu li {
+	float: left;
+	display: inline;
+	width:100px;
+	text-align:center;
+	border-right:1px solid #666666;
+	list-style:none;
+	padding:10px;
+}
+#menu  a {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color:#999999;	
+	text-decoration:none;
+	font-size:110%;
+	display: block;
+	outline: none;
+}
+#menu a:hover {	
+	color:#fff;
+}
+
+#menu .active_tab{
+	color: #fff;   
+}
+#menu .active_tab a{
+	color: #fff;
+}
+
+/******************** CAROUSELAUTO *********************/
+
+#carousel-wrapper {
+    width: 600px;
+    height: 160px;
+    overflow: hidden;
+    margin-left:200px;
+}
+#carousel-content {
+    width: 2500px;
+}
+#carousel-content .slide {
+    float: left;
+    width: 100px;
+    height: 160px;
+    position:relative;
+}
+.carouselauto_imagen{
+	position:absolute;
+	bottom:0px;
+	
+}
+
+/****************** SLIDER  ***************************/
+/* scrollable div area */
+#scrollable {
+	background-color: #fff;  
+    position:absolute;
+    top:460px;
+    left:200px;	
+	overflow: hidden;	
+	white-space: nowrap;	
+}
+
+.carousel_imagen{
+   margin-right:10px;
+   margin-left:10px;
+}
+
+
+/* wrap to make sure that image area is clickable */
+#sliderwrap {
+	position:absolute;
+    top:720px;
+	clear: both;
+	width: 960px;
+	height: 17px;
+	background: transparent url(../img/bar-right.png) no-repeat top right;
+}
+/* left image of track */
+#track-left {
+	position: absolute;
+	width: 15px;
+	height: 17px;
+	background: transparent url(../img/bar-left.png) no-repeat top left;
+}
+/* horizontal track */
+#track {
+	position: absolute;
+	width: 960px;
+	height: 17px;
+}
+/* horizontal track handle */
+#handle {
+	width: 150px;
+	height: 17px;
+}
