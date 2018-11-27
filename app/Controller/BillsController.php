@@ -24,11 +24,11 @@ class BillsController extends AppController {
 
     private function processFile($file)
     {
+        $this->Bill->create();
         $filename = explode("-", $file['file']['name']);
         $reference = $filename[0];
         $type = substr($reference, 0, 3);
         $date = explode(".", $filename[1]);
-        $this->Bill->create();
         $this->request->data['Bill']['date'] = "20" . $date[2] . "-" . $date[1] . "-" . $date[0];
         $this->request->data['Bill']['name'] = $file['file']['name'];
         $this->request->data['Bill']['reference'] = $reference;
