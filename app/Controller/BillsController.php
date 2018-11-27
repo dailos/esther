@@ -41,7 +41,7 @@ class BillsController extends AppController {
     {
         $filename = explode("-", $file['file']['name']);
         $type = substr($filename[0], 0, 3);
-        return ($type == Bill::DELIVERY_NOTE || $type == Bill::BILL);
+        return in_array($type, array(Bill::BILL, Bill::DELIVERY_NOTE));
     }
 /**
  * upload method
@@ -51,24 +51,17 @@ class BillsController extends AppController {
     public function upload()
     {
         if ($this->request->is('post')) {
-            if (empty($this->request->data['Bill']['file']['name'])) {
-                $this->Session->setFlash(__('Se ha producido un error'));
-                return $this->redirect(array('action' => 'index'));
-            }
-
             $file = $this->request->data['Bill'];
-
-            if (!$this->typeIsAllowed($file)) {
+            if (empty($file['file']['name'])) {
+                $this->Session->setFlash(__('Por favor seleccione un archivo'));
+            }else if (!$this->typeIsAllowed($file)) {
                 $this->Session->setFlash(__('La factura no tiene el formato de nombre correcto: FREXXXXXX-DD.MM.AA-XXXXXXXX'));
-            }
-
-            if (!move_uploaded_file($file['file']['tmp_name'], BILLS_PATH . $file['file']['name'])) {
+            }else if (!move_uploaded_file($file['file']['tmp_name'], BILLS_PATH . $file['file']['name'])) {
                 $this->Session->setFlash(__('No se ha podido subir la factura'));
+            } else {
+                $this->processFile($file);
+                $this->Session->setFlash(__('Factura subida correctamente'));
             }
-
-            $this->processFile($file);
-            $this->Session->setFlash(__('Factura subida correctamente'));
-
             return $this->redirect(array('controller' => 'Companies', 'action' => 'view', $file['company_id']));
         }
     }
