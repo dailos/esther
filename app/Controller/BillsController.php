@@ -55,12 +55,12 @@ class BillsController extends AppController {
             if (empty($file['file']['name'])) {
                 $this->Session->setFlash(__('Por favor seleccione un archivo'));
             }else if (!$this->typeIsAllowed($file)) {
-                $this->Session->setFlash(__('La factura no tiene el formato de nombre correcto: FREXXXXXX-DD.MM.AA-XXXXXXXX'));
+                $this->Session->setFlash(__('La factura/albarán no tiene el formato de nombre correcto: <FRE/ALB>XXXXXX-DD.MM.AA-XXXXXXXX'));
             }else if (!move_uploaded_file($file['file']['tmp_name'], BILLS_PATH . $file['file']['name'])) {
                 $this->Session->setFlash(__('No se ha podido subir la factura'));
             } else {
                 $this->processFile($file);
-                $this->Session->setFlash(__('Factura subida correctamente'));
+                $this->Session->setFlash(__('Factura/Albarán subido correctamente'));
             }
             return $this->redirect(array('controller' => 'Companies', 'action' => 'view', $file['company_id']));
         }
@@ -104,8 +104,12 @@ class BillsController extends AppController {
 			
 			$email = new CakeEmail();
 			$email->from(array(ADMIN_EMAIL => 'Licores Alcoder S.L.'));
-			$email->to($this->request->data['Bill']['email']);	  
-		    $email->subject('Licores Alcoder S.L. : Factura ref. '.$this->request->data['Bill']['reference'].' lista para descargar');
+			$addresses = array_filter(preg_split("/(,| |;)/", $this->request->data['Bill']['email']));
+			$email->to($addresses);
+			$subject =  $this->request->data['Bill']['type'] == Bill::BILL
+                ? 'Licores Alcoder S.L. : Factura ref. '.$this->request->data['Bill']['reference'].' lista para descargar'
+                : 'Licores Alcoder S.L. : Albarán ref. '.$this->request->data['Bill']['reference'].' listo para descargar';
+		    $email->subject($subject);
 		    $email->replyTo(ADMIN_EMAIL);		       
 		    $email->template('bill','default');// ctp filename
 		    $email->emailFormat('html');//text and html		 
@@ -113,15 +117,16 @@ class BillsController extends AppController {
 		    $email->viewVars(array('cuerpo' => $this->request->data['Bill']['body']));
 				       			    
 		    if($email->send())    	    		
-		    	$this->Session->setFlash(__('Factura enviada correctamente', true));
+		    	$this->Session->setFlash(__('Factura/albarán enviado correctamente', true));
 		    else 
-		    	$this->Session->setFlash(__('No se ha podido enviar la factura', true));
+		    	$this->Session->setFlash(__('No se ha podido enviar la factura/albarán', true));
 		    $this->redirect(array('action' => 'index'));	    		    
 		}else{
 			$bill = $this->Bill->read(null, $id);			
 			$this->set(compact('bill'));
 		}     
 	}
+
 	
 	public function download($id = null, $hash = null, $direct = null){	
 		if ($hash != md5($id)) $this->redirect($this->Auth->logout());

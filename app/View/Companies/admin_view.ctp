@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="form_data">
-		<h3>Subir nueva factura/Albarán</h3>
+		<h3>Subir nueva factura/albarán</h3>
 		<?php 
 			echo $this->Form->create('Bill', array('action'=>'upload', 'type'=>'file','inputDefaults' => array('label' => false,'div' => false))); 
 	 		echo $this->Form->file('file');
@@ -38,7 +38,7 @@
 			echo $this->Form->end('Subir');
 		?>		
 	</div>
-	<h3>Listado de facturas/Albaranes</h3>
+	<h3>Listado de facturas/albaranes</h3>
 	<table cellpadding="0" cellspacing="0">
 	<tr>			
 			<th>Referencia</th>
