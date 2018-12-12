@@ -158,23 +158,23 @@ services:
 #      - 'traefik.port=8983'
 #      - 'traefik.frontend.rule=Host:solr.${PROJECT_BASE_URL}'
 
-#  elasticsearch:
-#    image: wodby/elasticsearch:$ELASTICSEARCH_TAG
-#    environment:
-#      ES_JAVA_OPTS: "-Xms500m -Xmx500m"
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
+  elasticsearch:
+    image: wodby/elasticsearch:$ELASTICSEARCH_TAG
+    environment:
+      ES_JAVA_OPTS: "-Xms500m -Xmx500m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
 
-#  kibana:
-#    image: wodby/kibana:$KIBANA_TAG
-#    depends_on:
-#      - elasticsearch
-#    labels:
-#      - 'traefik.backend=kibana'
-#      - 'traefik.port=5601'
-#      - 'traefik.frontend.rule=Host:kibana.php.docker.localhost'
+  kibana:
+    image: wodby/kibana:$KIBANA_TAG
+    depends_on:
+      - elasticsearch
+    labels:
+      - 'traefik.backend=kibana'
+      - 'traefik.port=5601'
+      - 'traefik.frontend.rule=Host:kibana.php.docker.localhost'
 
 #  memcached:
 #    container_name: "${PROJECT_NAME}_memcached"
